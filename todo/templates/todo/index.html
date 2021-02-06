@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block header %}
+<h1 class="center">{% block tittle %}My Tasks{% endblock %}</h1>
+{% if g.user %}
+<div class="row center">
+  <div class="col s12 m4 l2"></div>
+  <form class="col s12 m4 l8" method="post">
+    <div class="row">
+      <div class="input-field col s10">
+        <i class="material-icons prefix">keyboard_arrow_right</i>
+        <input name="description" id="description" type="text" class="validate" required />
+        <label for="description">Description</label>
+      </div>
+      <div class="input-field col s2">
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+          ADD
+          <i class="material-icons right">add_circle</i>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="col s12 m4 l2"></div>
+</div>
+{% endif %} {% endblock%} {% block content %}
+<div class="row center">
+  <div class="col s12 m4 l2"></div>
+  <div class="col s12 m4 l8">
+    <ul class="collection center">
+      {% if todos %}
+      {% for todo in todos %}
+      <li class="collection-item avatar">
+        <a href="{{ url_for('todo.check', id=todo['id'], completed=todo['completed']) }}">
+        {% if todo['completed'] == 1 %}
+        <i class="material-icons circle blue">star</i></a>
+        {% else %}
+        <i class="material-icons circle blue">star_border</i></a>
+        {% endif %}
+        <form method="post" action="{{ url_for('todo.updatetest', id=todo['id']) }}">
+          {% if todo['completed'] == 1 %}
+          <input class="completed" disabled="true" value="{{ todo['description'] }}"></input>
+          {% else %}
+          <input type="text" name="description" id="description" value="{{ todo['description'] }}" />
+          {% endif %}
+        </form>
+        <a class="secondary-content" href="{{ url_for('todo.delete', id=todo['id']) }}">
+          <i class="material-icons">clear</i>
+        </a>
+      </li>
+      {% endfor%}
+      {% else %}
+      <p class="center">¡No hay tareas pendientes!</p>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="col s12 m4 l2"></div>
+</div>
+{% endblock%}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Editar {{ todo['description'] }}{% endblock %}</h1>
+{% endblock%} {% block content %}
+<div class="row center">
+  <form class="col s12" method="post">
+    <div class="row">
+      <div class="input-field col s8">
+        <i class="material-icons prefix">keyboard_arrow_right</i>
+        <input
+          name="description"
+          id="description"
+          type="text"
+          class="validate"
+          value="{{ request.form['description'] or todo['description'] }}"
+          required
+        />
+        <label for="description">Description</label>
+      </div>
+      <div class="input-field col s2">
+        <button
+          class="btn waves-effect waves-light"
+          type="submit"
+          name="action"
+        >
+          ADD
+          <i class="material-icons right">add_circle</i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock%}

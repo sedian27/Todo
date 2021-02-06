@@ -1,0 +1,11 @@
+.completed{
+    text-decoration: line-through;
+}
+
+.custom-width{
+    max-width: 500px;
+}
+
+.custom-logo{
+    padding-left: 10px;
+}
